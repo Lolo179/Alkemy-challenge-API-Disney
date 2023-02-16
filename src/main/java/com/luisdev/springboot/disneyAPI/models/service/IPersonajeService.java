@@ -11,4 +11,7 @@ public interface IPersonajeService {
 	public void save(Personaje personaje);
 	
 	public Personaje findOne(Long id);
+	
+	public void delete(Long id);
+
 }

@@ -23,14 +23,23 @@ public class PersonajeServiceImpl implements IPersonajeService {
 	}
 
 	@Override
+	@Transactional
 	public void save(Personaje personaje) {
 		personajeDao.save(personaje);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Personaje findOne(Long id) {
 		// TODO Auto-generated method stub
 		return personajeDao.findById(id).orElse(null);
+	}
+
+	@Override
+	@Transactional
+	public void delete(Long id) {
+		personajeDao.deleteById(id);
+		
 	}
 
 }

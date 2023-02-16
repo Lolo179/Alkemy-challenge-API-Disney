@@ -3,33 +3,61 @@ package com.luisdev.springboot.disneyAPI.models.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
-@Table(name="personajes")
+@Table(name = "personajes")
 public class Personaje implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@NotEmpty
 	private String nombre;
+
 	private String imagen;
+	
+	@Min(value = 1)
+	@NumberFormat
 	private int edad;
+	
+	@DecimalMin(value = "0.1")
+	@NumberFormat
 	private double peso;
+
+	@NotEmpty
 	private String historia;
+
+	@NotEmpty
 	private String frase;
+
+	@NotNull
+	@Column(name = "create_at")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createAt;
 
 	@PrePersist
 	public void prePersist() {
-		createAt = new Date(); 
+		createAt = new Date();
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
